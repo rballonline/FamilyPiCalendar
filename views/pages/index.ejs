@@ -2,14 +2,34 @@
 <html>
 <head>
   <% include ../partials/header.ejs %>
+  <script type='text/javascript'>
+
+$(document).ready(function() {
+$('#calendar').fullCalendar({
+  header: {
+    left: 'today prev,next',
+    center: 'title',
+    right: 'month,basicWeek,basicDay,agendaWeek'
+  },
+  googleCalendarApiKey: 'AIzaSyCnoJx_BOn2sQ_8LN3rUQ1BMjw1F0JKAOE',
+  eventSources: [{
+    googleCalendarId: 'rballonline@gmail.com',
+    className: 'mainEvents'
+  },
+  {
+    googleCalendarId: '88figau3ee9kuellodmi9mhc5ub5p960@import.calendar.google.com',
+    className: 'schoolEvents'
+  }]
+});
+});
+
+</script>
 </head>
-
 <body>
-
   <% include ../partials/nav.ejs %>
 <div class="container">
   <div class="row">
-    Calendar stuff
+    <div id="calendar"></div>
   </div> <!-- row -->
 </div><!--container-->
 </body>
