@@ -2,16 +2,22 @@
   <div class="container">
     <ul class="nav navbar-nav">
       <li class="active">
-        <a href="/"><span class="glyphicon glyphicon-home"></span> Home</a>
+        <a href="/"><span class="glyphicon glyphicon-calendar"></span> Calendar</a>
       </li>
       <li>
-        <a href="#"><span class="glyphicon glyphicon-user"></span> User</a>
+        <a href="/weather"><span class="glyphicon" id="weatherIcon"></span> Weather</a>
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="navbar-right">
-        <a href="#"><span class="glyphicon glyphicon-book"></span> Right side</a>
+        <a href="#"><i class="ionicons ion-clock"></i> <span id="time"></span></a>
       </li>
     </ul>
   </div>
 </nav>
+<script>
+$(document).ready(function() {
+  var now = new moment();
+  $('#time').text(now.format("hh:mm:ss"));
+});
+</script>
