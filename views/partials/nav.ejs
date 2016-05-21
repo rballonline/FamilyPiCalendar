@@ -12,12 +12,32 @@
       <li class="navbar-right">
         <a href="#"><i class="ionicons ion-clock"></i> <span id="time"></span></a>
       </li>
+      <li class="navbar-right">
+        <a href="#">Corona, CA <span id="weather"></span></a>
+      </li>
     </ul>
   </div>
 </nav>
 <script>
 $(document).ready(function() {
-  var now = new moment();
-  $('#time').text(now.format("hh:mm:ss"));
+  var setTime = function() {
+    var now = new moment();
+    $('#time').text(now.format("hh:mm:ss"));
+  }
+  setInterval(setTime ,1000);
+
+  $.simpleWeather({
+    location: 'Corona, CA',
+    woeid: '',
+    unit: 'f',
+    success: function(weather) {
+      html = weather.temp+'&deg;'+weather.units.temp;
+
+      $("#weather").html(html);
+    },
+    error: function(error) {
+      $("#weather").html('');
+    }
+  });
 });
 </script>
