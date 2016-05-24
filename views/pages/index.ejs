@@ -3,8 +3,31 @@
 <head>
   <% include ../partials/header.ejs %>
   <script type='text/javascript'>
-
 $(document).ready(function() {
+  var tooltip = $('<div/>').qtip({
+  		id: 'fullcalendar',
+  		prerender: true,
+  		content: {
+  			text: ' ',
+  			title: {
+  				button: true
+  			}
+  		},
+  		position: {
+  			my: 'bottom center',
+  			at: 'top center',
+  			target: 'mouse',
+  			viewport: $('#calendar'),
+  			adjust: {
+  				mouse: false,
+  				scroll: false
+  			}
+  		},
+  		show: false,
+  		hide: false,
+  		style: 'qtip-light'
+  	}).qtip('api');
+
   $('#calendar').fullCalendar({
     header: {
       left: 'today prev,next',
@@ -12,6 +35,24 @@ $(document).ready(function() {
       right: 'month,basicWeek,basicDay'
     },
     googleCalendarApiKey: 'AIzaSyCnoJx_BOn2sQ_8LN3rUQ1BMjw1F0JKAOE',
+    eventClick: function(event, jsEvent, view) {
+      var start = moment(event.start);
+      var content = '';
+      if(!(start.get('h') === 0 && start.get('m') === 0)) {
+				content += start.format('h.mm a')+' - ' + moment(event.end).format('h:mm a');
+      }
+
+			tooltip.set({
+        'content.title': event.title,
+				'content.text': content
+			})
+      .reposition(jsEvent).show(jsEvent);
+      return false;
+    },
+    dayClick: function() { tooltip.hide() },
+		eventResizeStart: function() { tooltip.hide() },
+		eventDragStart: function() { tooltip.hide() },
+		viewDisplay: function() { tooltip.hide() },
     eventSources: [{
       googleCalendarId: 'rballonline@gmail.com',
       className: 'mainEvents'
