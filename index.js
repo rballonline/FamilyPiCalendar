@@ -9,6 +9,12 @@ app.use(express.static(__dirname + '/assets'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+module.exports = {
+  isCurrentPage: function(req, controller, action) {
+    return (req.options.controller === controller && req.options.action === action)
+  }
+}
+
 app.get('/', function(request, response) {
   response.render('pages/index');
 });
